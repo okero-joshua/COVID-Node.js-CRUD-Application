@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<%- include('partials/navigation') %>
+
+<div class="container">
+    <h1 class="text-center mb-4">Update Variant</h1>
+    <form action="/update/<%= variant.variant_id %>" method="POST">
+        <div class="form-group">
+            <label for="variant_name">Variant Name: <%= variant.variant_name %></label>
+        </div>
+        <div class="form-group">
+            <label for="country_first_detected">Country First Detected</label>
+            <input type="text" class="form-control" id="country_first_detected" name="country_first_detected" value="<%= variant.country_first_detected %>" required>
+        </div>
+        <div class="form-group">
+            <label for="classification_id">Classification</label>
+            <select class="form-control" id="classification_id" name="classification_id" required>
+                <% classifications.forEach(function(classification) { %>
+                    <option value="<%= classification.classification_id %>" <%= classification.classification_id === variant.classification_id ? 'selected' : '' %>><%= classification.classification %></option>
+                <% }) %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Variant</button>
+    </form>
+</div>
+
+<%- include('partials/footer') %>

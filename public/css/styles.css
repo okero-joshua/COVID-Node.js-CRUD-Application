@@ -1,0 +1,7 @@
+.variant-image {
+    width: 200px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    object-fit: cover; /* Maintain aspect ratio and fill the frame */
+    object-position: center center; /* Center the image content */
+    border-radius: 50%; /* Make the image circular */
+}

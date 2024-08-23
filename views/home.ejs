@@ -1,0 +1,62 @@
+                <%- include('partials/header') %>
+                <%- include('partials/navigation') %>
+
+                <div class="container">
+                    <h1 class="text-center mb-4">Covid Variants</h1>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>First Detected</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% variants.forEach(function(variant) { %>
+                                <tr>
+                                    <td><a href="#" data-toggle="modal" data-target="#variantModal-<%= variant.variant_id %>"><%= variant.variant_name %></a></td>
+                                    <td><%= variant.country_first_detected %> on <%= variant.date_first_detected %></td>
+                                    <td>
+                                        <a href="/update/<%= variant.variant_id %>" class="btn btn-primary btn-sm">Update</a>
+                                        <form action="/delete/<%= variant.variant_id %>" method="POST" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal -->
+                <% variants.forEach(function(variant) { %>
+                    <div class="modal fade" id="variantModal-<%= variant.variant_id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><%= variant.variant_name %></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Description:</strong> <%= variant.description %></p>
+                                            <p><strong>Classification:</strong> <%= variant.classification %></p>
+                                            <p><strong>Attributes:</strong> <%= variant.attributes %></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img src="/images/modalVirusImage.png" alt="<%= variant.variant_name %> Variant" class="variant-image">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+
+                <%- include('partials/footer') %>

@@ -1,0 +1,37 @@
+                                <%- include('partials/header') %>
+                                <%- include('partials/navigation') %>
+
+                                <div class="container">
+                                    <h1 class="text-center mb-4">Trivia</h1>
+                                    <form action="/trivia" method="POST">
+                                        <div class="form-group">
+                                            <label for="country">In what country was the <%= variant.variant_name %> variant first detected?</label>
+                                            <input type="hidden" name="variant_id" value="<%= variant.variant_id %>">
+                                            <select class="form-control" id="country" name="country" required>
+                                                <% countries.forEach(function(country) { %>
+                                                    <option value="<%= country.country_first_detected %>"><%= country.country_first_detected %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                    </form>
+
+                                    <% if (typeof correct !== 'undefined') { %>
+                                        <div class="mt-4">
+                                            <% if (correct) { %>
+                                                <div class="alert alert-success" role="alert">
+                                                    Correct! The <strong><%= variant.variant_name %></strong> variant was first detected in <strong><%= variant.country_first_detected %></strong>.
+                                                </div>
+                                                <form action="/trivia" method="GET">
+                                                    <button type="submit" class="btn btn-secondary">Next</button>
+                                                </form>
+                                            <% } else { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Incorrect. Please try again.
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <%- include('partials/footer') %>
